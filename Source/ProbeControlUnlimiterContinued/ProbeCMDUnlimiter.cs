@@ -8,7 +8,10 @@ namespace ProbeControlUnlimiter
 
         public override void OnStart(StartState state)
         {
-            commandModules = part.FindModulesImplementing<ModuleCommand>().ToArray();
+            if (HighLogic.CurrentGame.Parameters.CustomParams<ProbeControlUnlimiterSettings>().IsEnabled)
+            {
+                commandModules = part.FindModulesImplementing<ModuleCommand>().ToArray();
+            }
         }
 
         public void UpdateNetwork() { }
