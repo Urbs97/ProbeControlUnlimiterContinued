@@ -1,27 +1,29 @@
 ﻿using CommNet;
-using System.Collections.Generic;
 
 namespace ProbeControlUnlimiter
 {
     public class ProbeCMDUnlimiter : PartModule, ICommNetControlSource
     {
-        List<ModuleCommand> commandModules = new List<ModuleCommand>();
+        ModuleCommand[] commandModules = null;
 
         public override void OnStart(StartState state)
         {
-            commandModules = part.FindModulesImplementing<ModuleCommand>();
+            commandModules = part.FindModulesImplementing<ModuleCommand>().ToArray();
         }
 
         public void UpdateNetwork() { }
 
         public VesselControlState GetControlSourceState()
         {
-            // not using LINQ because of performance concerns
-            foreach (ModuleCommand moduleCommand in commandModules)
+            if (commandModules != null)
             {
-                if (moduleCommand.GetControlSourceState() is VesselControlState.ProbePartial)
+                // the official documentation suggests using for loops when possible to minimize garbage
+                for (int i = 0; i < commandModules.Length; i++)
                 {
-                    return VesselControlState.ProbeFull;
+                    if (commandModules[i].GetControlSourceState() is VesselControlState.ProbePartial)
+                    {
+                        return VesselControlState.ProbeFull;
+                    }
                 }
             }
 
