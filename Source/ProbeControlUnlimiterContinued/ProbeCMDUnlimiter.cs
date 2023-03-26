@@ -4,13 +4,13 @@ namespace ProbeControlUnlimiter
 {
     public class ProbeCMDUnlimiter : PartModule, ICommNetControlSource
     {
-        ModuleCommand[] commandModules = null;
+        private ModuleCommand[] _commandModules = null;
 
         public override void OnStart(StartState state)
         {
             if (HighLogic.CurrentGame.Parameters.CustomParams<ProbeControlUnlimiterSettings>().IsEnabled)
             {
-                commandModules = part.FindModulesImplementing<ModuleCommand>().ToArray();
+                _commandModules = part.FindModulesImplementing<ModuleCommand>().ToArray();
             }
         }
 
@@ -18,15 +18,14 @@ namespace ProbeControlUnlimiter
 
         public VesselControlState GetControlSourceState()
         {
-            if (commandModules != null)
+            if (_commandModules == null) return VesselControlState.None;
+            
+            // the official documentation suggests using for loops when possible to minimize garbage
+            for (int i = 0; i < _commandModules.Length; i++)
             {
-                // the official documentation suggests using for loops when possible to minimize garbage
-                for (int i = 0; i < commandModules.Length; i++)
+                if (_commandModules[i].GetControlSourceState() is VesselControlState.ProbePartial)
                 {
-                    if (commandModules[i].GetControlSourceState() is VesselControlState.ProbePartial)
-                    {
-                        return VesselControlState.ProbeFull;
-                    }
+                    return VesselControlState.ProbeFull;
                 }
             }
 

@@ -2,7 +2,7 @@
   "NAME": "ProbeControlUnlimiterContinued",
   "URL": "https://github.com/Urbs97/ProbeControlUnlimiterContinued",
   "DOWNLOAD": "https://github.com/Urbs97/ProbeControlUnlimiterContinued/releases",
-  "VERSION": {"MAJOR": 1, "MINOR": 1, "PATCH": 0, "BUILD": 0},
+  "VERSION": {"MAJOR": 1, "MINOR": 1, "PATCH": 1, "BUILD": 0},
   "KSP_VERSION": {"MAJOR": 1, "MINOR": 12, "PATCH": 5},
   "KSP_VERSION_MIN": {"MAJOR": 1, "MINOR": 12, "PATCH": 0},
   "KSP_VERSION_MAX": {"MAJOR": 1, "MINOR": 12, "PATCH": 9}
