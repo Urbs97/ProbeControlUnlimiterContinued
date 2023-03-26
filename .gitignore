@@ -396,5 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/Source/ProbeControlUnlimiterContinued/Assemblies/*
 /GameData/ProbeControlUnlimiterContinued/ProbeControlUnlimiterContinued.dll
